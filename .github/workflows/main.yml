@@ -14,8 +14,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get update -y
-          apt-get install -y axel
+          pip install axel
 
       - name: Download magnet link
         run: |
