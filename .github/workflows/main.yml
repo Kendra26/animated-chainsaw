@@ -3,7 +3,7 @@ name: Download File
 on:
   push:
     branches:
-      - main
+      - New
 
 jobs:
   download-file:
@@ -14,14 +14,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install yt-dlp
+          pip install aria2
 
       - name: Download file
         run: |
-          yt-dlp "https://vd551.okcdn.ru/expires/1734057455438/srcIp/216.10.217.170/srcAg/CHROME_ANDROID/ms/185.226.55.61/type/2/sig/jtWYt9JMitU/ct/8/urls/45.136.21.77/clientType/1/zs/43/id/1888859785934/video/"
+          mkdir Downloads
+          aria2c --seed-time=0 "magnet:?xt=urn:btih:08BA81034075B27150D8BF75590237E3AFE08470&tr=udp%3A%2F%2Ftracker.bitsearch.to%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.moeking.me%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&dn=%5BBitsearch.to%5D+The+Three+Stooges+In+Orbit+(1962)+%5B1080p%5D+%5BWEBRip%5D+%5BYTS.MX%5D" -d Downloads
 
       - name: Upload file to artifact
         uses: actions/upload-artifact@v3
         with:
           name: downloaded-file
-          path: video [video].mp4
+          path: Downloads
