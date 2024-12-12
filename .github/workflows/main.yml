@@ -18,10 +18,11 @@ jobs:
 
       - name: Download file
         run: |
-          yt-dlp "https://vd551.okcdn.ru/expires/1734057455438/srcIp/216.10.217.170/srcAg/CHROME_ANDROID/ms/185.226.55.61/type/2/sig/jtWYt9JMitU/ct/8/urls/45.136.21.77/clientType/1/zs/43/id/1888859785934/video/"
+          mkdir Download
+          yt-dlp -o /Download/Video.mp4 "https://vd551.okcdn.ru/expires/1734057455438/srcIp/216.10.217.170/srcAg/CHROME_ANDROID/ms/185.226.55.61/type/2/sig/jtWYt9JMitU/ct/8/urls/45.136.21.77/clientType/1/zs/43/id/1888859785934/video/"
 
       - name: Upload file to artifact
         uses: actions/upload-artifact@v3
         with:
           name: downloaded-file
-          path: video [video].mp4
+          path: /Download/Video.mp4
