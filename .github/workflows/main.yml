@@ -1,27 +1,25 @@
-name: Download Magnet Link
+name: Download and Upload Artifact
 
 on:
   push:
     branches:
-      - New
+      - New  # Change this to the branch you want to trigger the workflow on
+  workflow_dispatch:  # Allows manual trigger of the workflow
 
 jobs:
-  download-magnet-link:
+  download-upload:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2  # You can use v2 or v3 if available
 
-      - name: Install dependencies
+      - name: Download file
         run: |
-          sudo apt-get install axel -y
+          curl -L -o A.Plan.to.Kill.S01E07.1080p.WEBRip.x264-BAE.mkv https://dn11.dailyuploads.net/d/yicboyyyoghlriinf5g32d2fiemcxlinxm3fydiy5en3qgpvggxsk3qixn7jo42jxupa3uvaokvn33y/A.Plan.to.Kill.S01E07.1080p.WEBRip.x264-BAE.mkv
 
-      - name: Download magnet link
-        run: |
-          axel -n 5 -o "downloaded_files/" "magnet:?xt=urn:btih:08BA81034075B27150D8BF75590237E3AFE08470&tr=udp%3A%2F%2Ftracker.bitsearch.to%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.moeking.me%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&dn=%5BBitsearch.to%5D+The+Three+Stooges+In+Orbit+(1962)+%5B1080p%5D+%5BWEBRip%5D+%5BYTS.MX%5D"
-
-      - name: Upload file to artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: downloaded-file
-          path: downloaded_files
+          name: A.Plan.to.Kill.S01E07
+          path: A.Plan.to.Kill.S01E07.1080p.WEBRip.x264-BAE.mkv
