@@ -5,13 +5,7 @@ branches:
   only:
     - Appveyour
 
-# Skip MSBuild mode entirely
-build: off
-
-install:
-  - sudo apt install -y curl
-
-script:
+build_script:
   - bash: |
       mkdir -p files/subfolder
       echo "Root file" > files/new.txt
