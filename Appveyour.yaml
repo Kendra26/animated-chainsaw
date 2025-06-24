@@ -3,7 +3,7 @@ image: Ubuntu
 
 branches:
   only:
-    - Sera
+    - Appveyour
 
 install:
 
