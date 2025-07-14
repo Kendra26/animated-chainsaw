@@ -1,28 +1,32 @@
-name: Download File
+name: Torrent Download & Upload to Pixeldrain
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  download-file:
+  torrent-upload:
     runs-on: ubuntu-latest
+    env:
+      PIXELDRAIN_API_KEY: '8ec6f000-e8d1-403d-820b-4324a6a68869'  # Replace with your actual API key
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: |
-          pip install yt-dlp
-
-      - name: Download file
+          pip install aria2
+   
+      - name: Download torrent content with webtorrent-cli
         run: |
-          mkdir downloaded_files
-          yt-dlp -o "downloaded_files/video.mp4" "https://vd551.okcdn.ru/expires/1734057455438/srcIp/216.10.217.170/srcAg/CHROME_ANDROID/ms/185.226.55.61/type/2/sig/jtWYt9JMitU/ct/8/urls/45.136.21.77/clientType/1/zs/43/id/1888859785934/video/"
-
-      - name: Upload file to artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: downloaded-file
-          path: downloaded_files
+          aria2c --seed-time=0 --dir=downloaded_files "magnet:?xt=urn:btih:0ADA1F3E2F5894A67E778DFF5BC76D9C1561621C&dn=Crime%20Scene%20Investigators%20S01E13%201080p%20WEB%20h264-BAE&tr=udp://tracker.bittor.pw:1337/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://tracker.dler.org:6969/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://open.demonii.com:1337/announce" "magnet:?xt=urn:btih:4d010dd3bebd2499912bc0f5e74cfb6a1809b944&dn=Buried.in.the.Backyard.S06E01.1080p.WEBRip.x264-BAE&tr=udp://tracker.bittor.pw:1337/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://tracker.dler.org:6969/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://open.demonii.com:1337/announce"
+      - name: Upload all downloaded files (recursive)
+        run: |
+          find ./downloaded_files -type f -print0 | while IFS= read -r -d '' file; do
+                curl -g -X POST "https://upload.gofile.io/uploadfile" \
+                     -H "Authorization: Bearer NkEP9nPmjC5bYQB7ZabZKnsUEBi7ww85" \
+                     -F "file=@\"$file\"" \
+                     -F "folderId=569169f0-479c-4720-857a-2aa341d5eca9"
+              done
