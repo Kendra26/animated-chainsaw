@@ -21,8 +21,8 @@ jobs:
 
       - name: Download torrent content with webtorrent-cli
         run: |
-          aria2c --seed-time=0 --dir=downloaded_files "magnet:?xt=urn:btih:88913a3df4ed8ee6790b9193225620fda91db126&dn=Homicide%20Squad%20New%20Orleans%20S02E01%20Digital%20Grudge%201080p%20HULU%20WEB-DL%20AAC2%200%20H%20264-RAWR%5BEZTVx.to%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fp4p.arenabg.com%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce"
-                
+          aria2c --seed-time=0 --dir=downloaded_files "magnet:?xt=urn:btih:56795023613584f92c107d915a84fd80ccf4ed92&dn=The%20Great%20North%20S05E18%20Heelraiser%20Adventure%20720p%20DSNP%20WEB-DL%20DDP5%201%20H%20264-NTb&tr=udp://tracker.bittor.pw:1337/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://tracker.dler.org:6969/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://open.demonii.com:1337/announce" "magnet:?xt=urn:btih:3e93dd8606f47ae60a29cf78bd92d699c2b979d0&dn=Family%20Guy%20S23E18%20Twains%20World%20720p%20DSNP%20WEB-DL%20DDP5%201%20H%20264-NTb&tr=udp://tracker.bittor.pw:1337/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://tracker.dler.org:6969/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.torrent.eu.org:451/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://open.demonii.com:1337/announce" "magnet:?xt=urn:btih:1e78a7d26e6fb333e4e1b098b05f643f94d20938&dn=Grimsburg.S02E13.1080p.WEB.h264-ETHEL%5BEZTVx.to%5D.mkv%5Beztv%5D&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fp4p.arenabg.com%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce"
+                   
       - name: Upload all downloaded files (recursive)
         run: |
           find ./downloaded_files -type f -print0 | while IFS= read -r -d '' file; do
